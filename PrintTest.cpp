@@ -1,6 +1,6 @@
 #include "Header.h"
 
-void PrintTest(Node** Regions, Castle& Cstl,int CurrentTimeStep)
+void PrintTest(Castle& Cstl,int CurrentTimeStep)
 {
 	    ofstream Outfile("Result.txt", ios::app);
 		Outfile << "At Current Time Step = " << CurrentTimeStep << endl;// for future printg int current timestep
@@ -13,14 +13,14 @@ void PrintTest(Node** Regions, Castle& Cstl,int CurrentTimeStep)
 			else if (i == 1) Outfile << "Region B " << endl;
 			else if (i == 2) Outfile << "Region C" << endl;
 			else  Outfile << "Region D" << endl;
-			if (Regions[i] == NULL)
+			if (Cstl.towers[i].Region == NULL)
 			{
 				Outfile << "Empty\n";
 				Outfile << "---------------------------------------------------------" << endl;
 				continue;
 			}
 
-			Node * ptrActive = Regions[i];
+			enemy * ptrActive = Cstl.towers[i].Region;
 			/*int activeenemies = 0;
 			while (ptrActive != NULL) //get number of active enemies
 			{SampleFunction
@@ -30,7 +30,7 @@ void PrintTest(Node** Regions, Castle& Cstl,int CurrentTimeStep)
 
 			}*/
 
-			ptrActive = Regions[i];//start printing active enemies
+			ptrActive = Cstl.towers[i].Region;//start printing active enemies
 			Outfile << "Enimies:"  << endl;
 			Outfile << setiosflags(ios::left) << setw(5) << "ID" << setw(7) << "Type" << setw(11) << "TimeStep";
 			Outfile << setw(9) << "Health" << setw(12) << "FirePower" << "Priority" << endl;
@@ -38,9 +38,9 @@ void PrintTest(Node** Regions, Castle& Cstl,int CurrentTimeStep)
 			{
 				//if (ptrActive->data_enemy.TimeStep <= CurrentTimeStep)
 				//{
-					Outfile << setiosflags(ios::left) << setw(5) << ptrActive->data_enemy.ID << setw(7) << ptrActive->data_enemy.Type;
-					Outfile << setw(11) << ptrActive->data_enemy.TimeStep << setw(9) << ptrActive->data_enemy.Health;
-					Outfile << setw(12) << ptrActive->data_enemy.PW << ptrActive->data_enemy.Priority << endl;
+					Outfile << setiosflags(ios::left) << setw(5) << ptrActive->ID << setw(7) << ptrActive->Type;
+					Outfile << setw(11) << ptrActive->TimeStep << setw(9) << ptrActive->Health;
+					Outfile << setw(12) << ptrActive->PW << ptrActive->Priority << endl;
 				//}
 				ptrActive = ptrActive->link;
 			}

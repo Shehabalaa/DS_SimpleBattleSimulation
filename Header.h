@@ -7,27 +7,7 @@ using namespace std;
 
 //Structs
 
-//Tower
-struct Tower
-{
-	int TW; //Tower width
-	int TH; //Tower Height
-	int Health; //Tower Health
-	int N_enemies;  //number of enemies that tower will attack each timestep
-	int  F_Pow;     //fire power of the tower
-};
-
-
-struct Castle
-{
-	//starting x,y
-	int Xstrt;
-	int Ystrt;
-	int W;	//width
-	int L;  //Height
-	Tower towers[4];	//Castle has 4 towers
-};
-
+//enemies
 struct enemy
 {
 
@@ -41,27 +21,46 @@ struct enemy
 	int Distance;	//Distance to the Castle
 	float Priority;
 	int RemainingTimetoShoot;
+	enemy* link;
 
 };
-struct Node {
-	enemy data_enemy;
-	Node*link;
 
+//Tower
+struct Tower
+{
+	int TW; //Tower width
+	int TH; //Tower Height
+	int Health; //Tower Health
+	int N_enemies;  //number of enemies that tower will attack each timestep
+	int  F_Pow;     //fire power of the tower
+	enemy* Region;
+	enemy* DeadInRegion;
 };
+
+
+struct Castle
+{
+	//starting x,y
+	int Xstrt;
+	int Ystrt;
+	int W;	//width
+	int L;  //Height
+	Tower towers[4];	//Castle has 4 towers
+};
+
+
 //Fucntions prototypes
 
-bool FileloadData(Node**, Castle&, float &, float &, float&);
-void PrintTest(Node**, Castle&, int);
-void AdjustShieldedPriorityandReorder(Node **, float, float, float);
-void Addenemy(Node*&, enemy);
-void Deleteenemy(Node*);
-void Destroy(Node*&);
-void Firstorder(Node**);
-void ReorderShield(Node**);
+bool FileloadData(Castle&, float &, float &, float&);
+void PrintTest(Castle&, int);
+void AdjustShieldedPriorityandReorder(Castle&, float, float, float);
+void Addenemy(enemy*&, enemy*);
+void Destroy(enemy*&);
+void Firstorder(Castle& Cstl);
 //void Deleteenemy(Node*&, Node*);
-void Removekilledenemies(Node**,int);
+//void Removekilledenemies(Castle&,int);
 //void void Sortlinkedlistbyhp(Node*);#pragma once
-enemy** EnimiesReadyForGraph(Node**, int, int&);
+enemy** EnimiesReadyForGraph(Castle, int, int&);
 
 
 
@@ -111,9 +110,3 @@ void DrawEnemies(enemy* enemies[], int size);
 /*Student use this function to print his/her message*/
 void PrintMsg(char*msg);
 
-
-
-
-
-
-//ssss

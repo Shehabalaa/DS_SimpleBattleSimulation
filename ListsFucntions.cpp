@@ -1,27 +1,27 @@
 #include "Header.h"
 
 
-void Addenemy(Node*& head, enemy E)
+void Addenemy(enemy*& head, enemy* ptrnew)
 {
-	Node * temp = new Node;
-	temp->data_enemy = E;
-	temp->link = head;
-	head = temp;
+	ptrnew->link = head;
+	head = ptrnew;
+
+
 }
 
-void Deleteenemy(Node* Pretemp)
+/*void Deleteenemy(Node* Pretemp)
 {
 	Node* Temp;
 	Temp = Pretemp->link;
 	Pretemp->link = Temp->link;
 	delete Temp;
 
-}
+}*/
 
 
-void Destroy(Node*& head)
+void Destroy(enemy*& head)
 {
-	Node*temp;
+	enemy* temp;
 
 	while (head != NULL)
 	{
@@ -32,7 +32,6 @@ void Destroy(Node*& head)
 
 
 }
-
 
 
 /*void Removekilledenemies(Node** Regions, int CurrentTimeStep)
@@ -67,45 +66,38 @@ Regions[i] = Regions[i]->link;
 
 
 
-
 }
-
 
 }*/
 
 
-void Firstorder(Node** Regions)
+void Firstorder(Castle& Cstl)
 {
 	//	GetShieldedFisrt(at top of linked list)
-	Node* temp1;
-	Node* temp2 = NULL;
+	enemy* temp1=NULL;
+	enemy* temp2 = NULL;
 	for (int i = 0; i < 4; i++)
 	{
-		if (Regions[i] == NULL) continue;
-		temp1 = Regions[i];
-		temp2 = temp1->link;
+		if (Cstl.towers[i].Region == NULL) continue;
+		temp1 = Cstl.towers[i].Region;
 
-		while (!!temp2)
+		while (!!temp1->link)
 		{
-			enemy E;
-			if (temp2->data_enemy.Type == 2)
+			if (temp1->link->Type == 2)
 			{
-				E = temp2->data_enemy;
-				temp2 = temp2->link;
-				Deleteenemy(temp1);
-				Addenemy(Regions[i], E);
+				temp2 = temp1->link;
+				temp1->link = temp1->link->link;
+				Addenemy(Cstl.towers[i].Region,temp2);
 			}
-			else
-			{
-				temp2 = temp2->link;
+			else 
 				temp1 = temp1->link;
-			}
+			
 		}
 
 		//      Sort enemies after shielded by timestep
-		temp1 = Regions[i];
+		temp1 = Cstl.towers[i].Region;
 		temp2 = NULL;
-		while (temp1 != NULL&&temp1->data_enemy.Type == 2)
+		while (temp1 != NULL&&temp1->Type == 2)
 			temp1 = temp1->link;
 
 		while (!!temp1)
@@ -114,12 +106,43 @@ void Firstorder(Node** Regions)
 			while (!!temp2)
 
 			{
-				Node*temp3 = new Node;
-				if (temp1->data_enemy.TimeStep>temp2->data_enemy.TimeStep)
+				enemy*temp3 = new enemy;
+				if (temp1->TimeStep>temp2->TimeStep)
 				{
-					temp3->data_enemy = temp1->data_enemy;
-					temp1->data_enemy = temp2->data_enemy;
-					temp2->data_enemy = temp3->data_enemy;
+					//
+					temp3->Distance = temp1->Distance;
+					temp3->Health = temp1->Health;
+					temp3->ID = temp1->ID;
+					temp3->Priority = temp1->Priority;
+					temp3->PW = temp1->PW;
+					temp3->Region = temp1->Region;
+					temp3->Reload_Period = temp1->Reload_Period;
+					temp3->RemainingTimetoShoot = temp1->RemainingTimetoShoot;
+					temp3->TimeStep = temp1->TimeStep;
+					temp3->Type = temp1->Type;
+					//
+					temp1->Distance = temp2->Distance;
+					temp1->Health = temp2->Health;
+					temp1->ID = temp2->ID;
+					temp1->Priority = temp2->Priority;
+					temp1->PW = temp2->PW;
+					temp1->Region = temp2->Region;
+					temp1->Reload_Period = temp2->Reload_Period;
+					temp1->RemainingTimetoShoot = temp2->RemainingTimetoShoot;
+					temp1->TimeStep = temp2->TimeStep;
+					temp1->Type = temp2->Type;
+					//
+					temp3->Distance = temp3->Distance;
+					temp3->Health = temp3->Health;
+					temp3->ID = temp3->ID;
+					temp3->Priority = temp3->Priority;
+					temp3->PW = temp3->PW;
+					temp3->Region = temp3->Region;
+					temp3->Reload_Period = temp3->Reload_Period;
+					temp3->RemainingTimetoShoot = temp3->RemainingTimetoShoot;
+					temp3->TimeStep = temp3->TimeStep;
+					temp3->Type = temp3->Type;
+					//
 				}
 
 				temp2 = temp2->link;
@@ -135,16 +158,96 @@ void Firstorder(Node** Regions)
 
 
 
-enemy** EnimiesReadyForGraph(Node** Regions,int Currenttimestep,int &size)
+
+void AdjustShieldedPriorityandReorder(Castle& Cstl, float c1, float c2, float c3)
+{
+	for (int i = 0; i < 4; i++) // For each Region do following
+	{
+		enemy*temp1 = Cstl.towers[i].Region;
+		while (temp1 != NULL) // Give Shielded new Priority
+		{
+			if (temp1->Type == 2)
+				temp1->Priority = (temp1->PW / temp1->Distance)*c1 + (c2 / (temp1->RemainingTimetoShoot + 1)) + temp1->Health*c3;
+			else
+				break;
+			temp1 = temp1->link;
+
+		}
+
+		//ReorderShielded
+
+		enemy*temp2 = NULL;
+		temp1 = Cstl.towers[i].Region;
+		while (!!temp1 && !!temp1->Priority)
+		{
+			temp2 = temp1->link;
+			while (!!temp2 && !!temp2->Priority)
+
+			{
+				enemy*temp3 = new enemy;
+				if (temp1->Priority < temp2->Priority)
+				{
+					//
+					temp3->Distance = temp1->Distance;
+					temp3->Health = temp1->Health;
+					temp3->ID = temp1->ID;
+					temp3->Priority = temp1->Priority;
+					temp3->PW = temp1->PW;
+					temp3->Region = temp1->Region;
+					temp3->Reload_Period = temp1->Reload_Period;
+					temp3->RemainingTimetoShoot = temp1->RemainingTimetoShoot;
+					temp3->TimeStep = temp1->TimeStep;
+					temp3->Type = temp1->Type;
+					//
+					temp1->Distance = temp2->Distance;
+					temp1->Health = temp2->Health;
+					temp1->ID = temp2->ID;
+					temp1->Priority = temp2->Priority;
+					temp1->PW = temp2->PW;
+					temp1->Region = temp2->Region;
+					temp1->Reload_Period = temp2->Reload_Period;
+					temp1->RemainingTimetoShoot = temp2->RemainingTimetoShoot;
+					temp1->TimeStep = temp2->TimeStep;
+					temp1->Type = temp2->Type;
+					//
+					temp3->Distance = temp3->Distance;
+					temp3->Health = temp3->Health;
+					temp3->ID = temp3->ID;
+					temp3->Priority = temp3->Priority;
+					temp3->PW = temp3->PW;
+					temp3->Region = temp3->Region;
+					temp3->Reload_Period = temp3->Reload_Period;
+					temp3->RemainingTimetoShoot = temp3->RemainingTimetoShoot;
+					temp3->TimeStep = temp3->TimeStep;
+					temp3->Type = temp3->Type;
+					//
+
+				}
+
+				temp2 = temp2->link;
+				delete[] temp3;
+				temp3 = 0;
+
+			}
+			temp1 = temp1->link;
+		}
+
+	}
+
+}
+
+
+
+enemy** EnimiesReadyForGraph(Castle Cstl,int Currenttimestep,int &size)
 {
 	for (int i = 0; i < 4; i++)// get n_enm
 	{
-		if (Regions[i] == NULL)
+		if (Cstl.towers[i].Region == NULL)
 			continue;
-		Node*temp = Regions[i];
+		enemy*temp = Cstl.towers[i].Region;
 		while (temp != NULL)
 		{
-			if (temp->data_enemy.TimeStep <= Currenttimestep)
+			if (temp->TimeStep <= Currenttimestep)
 				size++;
 			temp = temp->link;
 		}
@@ -159,16 +262,16 @@ enemy** EnimiesReadyForGraph(Node** Regions,int Currenttimestep,int &size)
 
 		for (int i = 0; i < 4; i++)
 		{
-			if (Regions[i] == NULL)
+			if (Cstl.towers[i].Region == NULL)
 				continue;
 
-			Node*temp = Regions[i];
+			enemy*temp = Cstl.towers[i].Region;
 			while (temp != NULL)
 			{
-				if (temp->data_enemy.TimeStep <= Currenttimestep)
+				if (temp->TimeStep <= Currenttimestep)
 				{
 
-					enemies[j] = &temp->data_enemy;
+					enemies[j] = temp;
 					j++;
 				}
 				temp = temp->link;
