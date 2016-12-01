@@ -33,8 +33,8 @@ struct Tower
 	int Health; //Tower Health
 	int N_enemies;  //number of enemies that tower will attack each timestep
 	int  F_Pow;     //fire power of the tower
-	enemy* Region;
-	enemy* DeadInRegion;
+	enemy* Region; // enemy list
+	enemy* DeadInRegion;// deadenemy list
 };
 
 
