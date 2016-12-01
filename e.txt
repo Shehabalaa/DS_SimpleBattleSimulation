@@ -1,7 +1,4 @@
-<<<<<<< HEAD:e.txt
-eeeee  e e e e#include "utility.h"
 
-=======
 #include "utility.h"
 //for git hub 
 >>>>>>> shehab:eee.txt
