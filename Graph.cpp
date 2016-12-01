@@ -275,3 +275,51 @@ void PrintMsg(char*msg)
 {
 	cout << msg;
 }
+
+// this fucntion helps to return nubmer of active enemies in ant region
+int getnumberofactive(enemy *temp,int CurrentTimeStep)
+{
+	int num = 0;
+	while (!!temp)
+	{
+		if (temp->TimeStep <= CurrentTimeStep)
+			num++;
+		else if(temp->Type != 2)
+			break;
+		temp = temp->link;
+
+	}
+	return num;
+
+}
+
+
+// this fucntion helps to return nubmer of killed enemies in any regiosn at certian timestep
+int getnumberofkilledat(enemy* temp , int TimeStep)
+{
+	int num = 0;
+	if (TimeStep == -1)
+		return num;
+	while (!!temp)
+	{
+		if (temp->KTS == TimeStep)
+			num++;
+		temp = temp->link;
+	}
+	return num;
+}
+
+
+
+// this fucntion helps to return total nubmer of killed enemies in such  region
+int getTotalnumberofKilled(enemy* temp)
+{
+	int num = 0;
+	while (!!temp)
+	{
+			num++;
+		temp = temp->link;
+
+	}
+	return num;
+}

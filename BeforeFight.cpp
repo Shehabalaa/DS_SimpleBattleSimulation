@@ -1,6 +1,6 @@
 #include "Header.h"
 
-bool FileloadData(Castle &Cstl, float &c1, float &c2, float&c3)
+bool FileloadData(Castle &Cstl, float &c1, float &c2, float&c3,int&TOT)
 {
 	ifstream infile("test.txt", ios::in);
 	if (!infile.is_open())
@@ -12,6 +12,7 @@ bool FileloadData(Castle &Cstl, float &c1, float &c2, float&c3)
 		Cstl.towers[i].Region = NULL;
 		Cstl.towers[i].DeadInRegion = NULL;
 		Cstl.towers[i].unpaved_dsitanse = 30;
+		Cstl.towers[i].TotlaDamage = 0;
 	}
 
 	infile >> c1 >> c2 >> c3; // Read constants
@@ -40,6 +41,9 @@ bool FileloadData(Castle &Cstl, float &c1, float &c2, float&c3)
 		ptrnew->Distance = 60;
 		ptrnew->RemainingTimetoShoot = 0;
 		ptrnew->Priority = 0;
+		ptrnew->isshot = false;
+		ptrnew->KTS = -1;
+		ptrnew->TFS = -1;
 
 
 		if (Region == 'A')
@@ -52,7 +56,7 @@ bool FileloadData(Castle &Cstl, float &c1, float &c2, float&c3)
 			Addenemy(Cstl.towers[2].Region, ptrnew);
 		else 
 			Addenemy(Cstl.towers[3].Region, ptrnew);
-
+		TOT++; // increase number of enemies
 	}
 
 	infile.close();

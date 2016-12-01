@@ -21,6 +21,9 @@ struct enemy
 	int Distance;	//Distance to the Castle
 	float Priority;
 	int RemainingTimetoShoot;
+	bool isshot; // tells if enemy shot by tower or not 
+	int TFS; // time first shot
+	int KTS; // timestep that killed in
 	enemy* link;
 
 };
@@ -34,6 +37,7 @@ struct Tower
 	int N_enemies;  //number of enemies that tower will attack each timestep
 	int  F_Pow;     //fire power of the tower
 	int unpaved_dsitanse;
+	float TotlaDamage;
 	enemy* Region; // enemy list
 	enemy* DeadInRegion;// deadenemy list
 };
@@ -52,7 +56,7 @@ struct Castle
 
 //Fucntions prototypes before graph
 
-bool FileloadData(Castle&, float &, float &, float&);
+bool FileloadData(Castle&, float &, float &, float&,int&);
 void PrintTest(Castle&, int);
 void AdjustShieldedPriorityandReorder(Castle&, float, float, float);
 void Addenemy(enemy*&, enemy*);
@@ -112,4 +116,15 @@ void DrawEnemies(enemy* enemies[], int size);
 void PrintMsg(char*msg);
 
 // printing statistics file
-void PrintstatisticFile(Castle);
+void PrintstatisticFile(Castle,int,int);
+
+// this fucntion helps to return nubmer of active enemies in such regiosn
+int getnumberofactive(enemy *,int);
+
+// this fucntion helps to return nubmer of killed enemies in any regiosn at certian timestep
+int getnumberofkilledat(enemy *, int);
+
+
+
+// this fucntion helps to return total nubmer of killed enemies in such  regiosn
+int getTotalnumberofKilled(enemy *);
