@@ -1,4 +1,4 @@
-  e e e e#include "utility.h"
+eeeee  e e e e#include "utility.h"
 
 /*A function to set the position of cursor on the screen*/
 void gotoxy(int x, int y)
