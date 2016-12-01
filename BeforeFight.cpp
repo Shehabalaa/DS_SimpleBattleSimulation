@@ -11,6 +11,7 @@ bool FileloadData(Castle &Cstl, float &c1, float &c2, float&c3)
 		infile >> Cstl.towers[i].Health >> Cstl.towers[i].N_enemies >> Cstl.towers[i].F_Pow;
 		Cstl.towers[i].Region = NULL;
 		Cstl.towers[i].DeadInRegion = NULL;
+		Cstl.towers[i].unpaved_dsitanse = 30;
 	}
 
 	infile >> c1 >> c2 >> c3; // Read constants

@@ -13,7 +13,7 @@ struct enemy
 
 	int ID;			//Each enemy has a unique ID (sequence number)
 	int Type;       // PVR, FITR, SHLD_FITR
-	int TimeStep;   // time that enemy will arrive
+	int TimeStep;   // time that enemy will be active
 	int PW;         // power of enemy
 	float Health;	//Enemy health
 	int Region;	//Region of this enemy
@@ -33,6 +33,7 @@ struct Tower
 	int Health; //Tower Health
 	int N_enemies;  //number of enemies that tower will attack each timestep
 	int  F_Pow;     //fire power of the tower
+	int unpaved_dsitanse;
 	enemy* Region; // enemy list
 	enemy* DeadInRegion;// deadenemy list
 };
@@ -49,7 +50,7 @@ struct Castle
 };
 
 
-//Fucntions prototypes
+//Fucntions prototypes before graph
 
 bool FileloadData(Castle&, float &, float &, float&);
 void PrintTest(Castle&, int);
@@ -84,7 +85,7 @@ enemy** EnimiesReadyForGraph(Castle, int, int&);
 
 
 
-//Functions Prototype
+//Functions Prototype of graph
 
 /*A function to set the position of cursor on the screen*/
 void gotoxy(int x, int y);
@@ -110,3 +111,5 @@ void DrawEnemies(enemy* enemies[], int size);
 /*Student use this function to print his/her message*/
 void PrintMsg(char*msg);
 
+// printing statistics file
+void PrintstatisticFile(Castle);

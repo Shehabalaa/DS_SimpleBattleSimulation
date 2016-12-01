@@ -3,11 +3,11 @@ using namespace std;
 
 void main() {
 	int gamemode = 0;
-	cout << "Please Select Gamemode:/n";
-	cout << "1./n";
-	cout << "2./n";
-	cout << "3./n";
-
+	cout << "Please Select Gamemode:\n";
+	cout << "1.interactive mode.\n";
+	cout << "2.step-by-step mode.\n";
+	cout << "3.silent mode.\n";
+	cin>> gamemode;
 
 
 	Castle Cstl;
@@ -56,7 +56,7 @@ void main() {
 
 
 	if (gamemode == 3)
-		PrintstatisticFile();
+		PrintstatisticFile(Cstl);
 
 
 	
