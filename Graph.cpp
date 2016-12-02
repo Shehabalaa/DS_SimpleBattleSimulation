@@ -146,7 +146,7 @@ void DrawEnemy(const enemy& E, int Ypos)
 	switch (E.Region)
 	{
 	case 0:
-		x = CastleXStrt - E.Distance + 1;
+		x = CastleXStrt - E.Distance ;
 		y = (CmdHeight / 2) - (CastleLength / 4) - Ypos;
 		break;
 	case 1:
@@ -158,7 +158,7 @@ void DrawEnemy(const enemy& E, int Ypos)
 		y = (CmdHeight / 2) + (CastleLength / 4) + Ypos;
 		break;
 	default:
-		x = CastleXStrt - E.Distance + 1;
+		x = CastleXStrt - E.Distance ;
 		y = (CmdHeight / 2) + (CastleLength / 4) + Ypos;
 
 	}

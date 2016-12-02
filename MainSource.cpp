@@ -137,7 +137,7 @@ void main() {
 			if (gamemode == 2) cin.get();
 
 			for (int i = 0; i < arrsize; i++)///////////////////////////////////////////////////////////////////
-				enemies_show[i]->Distance -= 2;///////////////////////////////////////
+				enemies_show[i]->Distance --;///////////////////////////////////////
 
 			delete[] enemies_show;// remove after graph
 
