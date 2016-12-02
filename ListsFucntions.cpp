@@ -106,20 +106,20 @@ void Firstorder(Castle& Cstl)
 			while (!!temp2)
 
 			{
-				enemy*temp3 = new enemy;
+				enemy E;
 				if (temp1->TimeStep>temp2->TimeStep)
 				{
 					//
-					temp3->Distance = temp1->Distance;
-					temp3->Health = temp1->Health;
-					temp3->ID = temp1->ID;
-					temp3->Priority = temp1->Priority;
-					temp3->PW = temp1->PW;
-					temp3->Region = temp1->Region;
-					temp3->Reload_Period = temp1->Reload_Period;
-					temp3->RemainingTimetoShoot = temp1->RemainingTimetoShoot;
-					temp3->TimeStep = temp1->TimeStep;
-					temp3->Type = temp1->Type;
+					E.Distance = temp1->Distance;
+					E.Health = temp1->Health;
+					E.ID = temp1->ID;
+					E.Priority = temp1->Priority;
+					E.PW = temp1->PW;
+					E.Region = temp1->Region;
+					E.Reload_Period = temp1->Reload_Period;
+					E.RemainingTimetoShoot = temp1->RemainingTimetoShoot;
+					E.TimeStep = temp1->TimeStep;
+					E.Type = temp1->Type;
 					//
 					temp1->Distance = temp2->Distance;
 					temp1->Health = temp2->Health;
@@ -132,22 +132,20 @@ void Firstorder(Castle& Cstl)
 					temp1->TimeStep = temp2->TimeStep;
 					temp1->Type = temp2->Type;
 					//
-					temp3->Distance = temp3->Distance;
-					temp3->Health = temp3->Health;
-					temp3->ID = temp3->ID;
-					temp3->Priority = temp3->Priority;
-					temp3->PW = temp3->PW;
-					temp3->Region = temp3->Region;
-					temp3->Reload_Period = temp3->Reload_Period;
-					temp3->RemainingTimetoShoot = temp3->RemainingTimetoShoot;
-					temp3->TimeStep = temp3->TimeStep;
-					temp3->Type = temp3->Type;
+					temp2->Distance = E.Distance;
+					temp2->Health = E.Health;
+					temp2->ID = E.ID;
+					temp2->Priority = E.Priority;
+					temp2->PW = E.PW;
+					temp2->Region = E.Region;
+					temp2->Reload_Period = E.Reload_Period;
+					temp2->RemainingTimetoShoot = E.RemainingTimetoShoot;
+					temp2->TimeStep = E.TimeStep;
+					temp2->Type = E.Type;
 					//
 				}
 
 				temp2 = temp2->link;
-				delete[] temp3;
-				temp3 = 0;
 
 			}
 			temp1 = temp1->link;
@@ -184,20 +182,20 @@ void AdjustShieldedPriorityandReorder(Castle& Cstl, float c1, float c2, float c3
 			while (!!temp2 && !!temp2->Priority)
 
 			{
-				enemy*temp3 = new enemy;
+				enemy E;
 				if (temp1->Priority < temp2->Priority)
 				{
 					//
-					temp3->Distance = temp1->Distance;
-					temp3->Health = temp1->Health;
-					temp3->ID = temp1->ID;
-					temp3->Priority = temp1->Priority;
-					temp3->PW = temp1->PW;
-					temp3->Region = temp1->Region;
-					temp3->Reload_Period = temp1->Reload_Period;
-					temp3->RemainingTimetoShoot = temp1->RemainingTimetoShoot;
-					temp3->TimeStep = temp1->TimeStep;
-					temp3->Type = temp1->Type;
+					E.Distance = temp1->Distance;
+					E.Health = temp1->Health;
+					E.ID = temp1->ID;
+					E.Priority = temp1->Priority;
+					E.PW = temp1->PW;
+					E.Region = temp1->Region;
+					E.Reload_Period = temp1->Reload_Period;
+					E.RemainingTimetoShoot = temp1->RemainingTimetoShoot;
+					E.TimeStep = temp1->TimeStep;
+					E.Type = temp1->Type;
 					//
 					temp1->Distance = temp2->Distance;
 					temp1->Health = temp2->Health;
@@ -210,23 +208,21 @@ void AdjustShieldedPriorityandReorder(Castle& Cstl, float c1, float c2, float c3
 					temp1->TimeStep = temp2->TimeStep;
 					temp1->Type = temp2->Type;
 					//
-					temp3->Distance = temp3->Distance;
-					temp3->Health = temp3->Health;
-					temp3->ID = temp3->ID;
-					temp3->Priority = temp3->Priority;
-					temp3->PW = temp3->PW;
-					temp3->Region = temp3->Region;
-					temp3->Reload_Period = temp3->Reload_Period;
-					temp3->RemainingTimetoShoot = temp3->RemainingTimetoShoot;
-					temp3->TimeStep = temp3->TimeStep;
-					temp3->Type = temp3->Type;
+					temp2->Distance = E.Distance;
+					temp2->Health = E.Health;
+					temp2->ID = E.ID;
+					temp2->Priority = E.Priority;
+					temp2->PW = E.PW;
+					temp2->Region = E.Region;
+					temp2->Reload_Period = E.Reload_Period;
+					temp2->RemainingTimetoShoot = E.RemainingTimetoShoot;
+					temp2->TimeStep = E.TimeStep;
+					temp2->Type = E.Type;
 					//
 
 				}
 
 				temp2 = temp2->link;
-				delete[] temp3;
-				temp3 = 0;
 
 			}
 			temp1 = temp1->link;
@@ -249,6 +245,8 @@ enemy** EnimiesReadyForGraph(Castle Cstl,int Currenttimestep,int &size)
 		{
 			if (temp->TimeStep <= Currenttimestep)
 				size++;
+			else if (temp->Type != 2)
+				break;
 			temp = temp->link;
 		}
 

@@ -7,7 +7,7 @@ void main() {
 	cout << "1.interactive mode.\n";
 	cout << "2.step-by-step mode.\n";
 	cout << "3.silent mode.\n";
-	cin>> gamemode;
+	cin >> gamemode;
 	cin.ignore();
 
 
@@ -19,11 +19,11 @@ void main() {
 	Cstl.Ystrt = CastleYStrt;
 	Cstl.W = CastleWidth;
 	Cstl.L = CastleLength;
-	int CurrentTimeStep=0;
+	int CurrentTimeStep = -1;
 	int gameresult = 0; // 0 game is on 1 means win 2 means lose 3 means draw
 	int TOT_enemies = 0; // total number of enemies
 
-	if (!FileloadData(Cstl, c1, c2, c3,TOT_enemies))//Read Data
+	if (!FileloadData(Cstl, c1, c2, c3, TOT_enemies))//Read Data
 	{
 		cout << "File (test.txt) doesnot exist:\nPlease rename any sample file in project folder to (test.txt)" << endl;
 		return;
@@ -31,9 +31,50 @@ void main() {
 	Firstorder(Cstl);
 
 
-	while (gameresult==0)
+	while (gameresult == 0)
 	{
-		if (gamemode!=3)//start by showing the enemies
+		CurrentTimeStep++;
+
+		// Directly before fight
+		AdjustShieldedPriorityandReorder(Cstl, c1, c2, c3);
+
+
+
+
+
+
+
+		//Fight Logic
+
+
+
+
+
+
+		// After Fight
+
+
+
+
+
+
+
+
+
+
+		PrintTest(Cstl, CurrentTimeStep);
+
+
+
+
+
+
+
+
+
+		
+
+		if (gamemode != 3)//start by showing the enemies
 		{
 			DrawCastle(Cstl, CurrentTimeStep);
 			int arrsize = 0;
@@ -45,7 +86,7 @@ void main() {
 
 			PrintMsg("Total current eneimes\t");
 			PrintMsg("A = ");
-			cout <<getnumberofactive(Cstl.towers[0].Region, CurrentTimeStep);
+			cout << getnumberofactive(Cstl.towers[0].Region, CurrentTimeStep);
 			PrintMsg("\tB = ");
 			cout << getnumberofactive(Cstl.towers[1].Region, CurrentTimeStep);
 			PrintMsg("\tC = ");
@@ -55,13 +96,13 @@ void main() {
 
 			PrintMsg("\nLast time step kill\t");
 			PrintMsg("A = ");
-			cout << getnumberofkilledat(Cstl.towers[0].DeadInRegion, CurrentTimeStep-1);
+			cout << getnumberofkilledat(Cstl.towers[0].DeadInRegion, CurrentTimeStep - 1);
 			PrintMsg("\tB = ");
-			cout << getnumberofkilledat(Cstl.towers[1].DeadInRegion, CurrentTimeStep-1);
+			cout << getnumberofkilledat(Cstl.towers[1].DeadInRegion, CurrentTimeStep - 1);
 			PrintMsg("\tC = ");
-			cout << getnumberofkilledat(Cstl.towers[2].DeadInRegion, CurrentTimeStep-1);
+			cout << getnumberofkilledat(Cstl.towers[2].DeadInRegion, CurrentTimeStep - 1);
 			PrintMsg("\tD = ");
-			cout << getnumberofkilledat(Cstl.towers[3].DeadInRegion, CurrentTimeStep-1);
+			cout << getnumberofkilledat(Cstl.towers[3].DeadInRegion, CurrentTimeStep - 1);
 
 
 			PrintMsg("\nTotal killed by\t\t");
@@ -78,7 +119,7 @@ void main() {
 
 			PrintMsg("\nUnpaved distance\t");
 			PrintMsg("A = ");
-			cout<<Cstl.towers[0].unpaved_dsitanse;
+			cout << Cstl.towers[0].unpaved_dsitanse;
 			PrintMsg("\tB = ");
 			cout << Cstl.towers[1].unpaved_dsitanse;
 			PrintMsg("\tC = ");
@@ -86,70 +127,40 @@ void main() {
 			PrintMsg("\tD = ");
 			cout << Cstl.towers[3].unpaved_dsitanse;
 
-			
+
 
 
 
 			cout << endl;
 
-			if (CurrentTimeStep == 0&& gamemode == 2) PrintMsg("\nPress ENTER to start motion demo");
+			if (CurrentTimeStep == 0 && gamemode == 2) PrintMsg("\nPress ENTER to start motion demo");
 			if (gamemode == 2) cin.get();
 
-			for (int i = 0; i < arrsize; i++)
-				enemies_show[i]->Distance--;
+			for (int i = 0; i < arrsize; i++)///////////////////////////////////////////////////////////////////
+				enemies_show[i]->Distance -= 2;///////////////////////////////////////
 
 			delete[] enemies_show;// remove after graph
 
+			if (gamemode == 1) Sleep(1000);
+			if (CurrentTimeStep == 60)
+				break;
+
+
+
 		}
-
-
-
-
-
-		// Directly before fight
-		AdjustShieldedPriorityandReorder(Cstl, c1, c2, c3);
-
-
-		//Fight Logic
-
-
-
-		
-		
-		
-		// After Fight
-		
-		
-		
-		//PrintTest(Cstl, CurrentTimeStep);
-
-
-
-
-
-
-
-
-
-		
-
-		CurrentTimeStep++;
-		if (gamemode==1) Sleep(1000);
-		if (CurrentTimeStep == 10)
-			break;
 	}
 
 
 
 
-	//if (gamemode == 3)
-		PrintstatisticFile(Cstl, gameresult,TOT_enemies);
+	if (gamemode == 3)
+		PrintstatisticFile(Cstl, gameresult, TOT_enemies);
 
-
-
-	
 
 }
+	
+
+
 /*
 when go to fight 
 if(!isshot)
