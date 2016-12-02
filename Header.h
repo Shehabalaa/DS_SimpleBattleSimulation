@@ -82,7 +82,7 @@ enemy** EnimiesReadyForGraph(Castle, int, int&);
 #define TowerWidth      7
 #define TowerLength     3
 
-#define EnemyShape		219  //ASCII code of enemy char shape 
+#define EnemyShape		0117  //ASCII code of enemy char shape 
 
 
 
