@@ -34,41 +34,37 @@ void Destroy(enemy*& head)
 }
 
 
-/*void Removekilledenemies(Node** Regions, int CurrentTimeStep)
+void adjustkilled(Castle& Cstl)
 {
-for (int i = 0; i < 4; i++)
-{
-Node* temp1;
-Node* delltemp;
-temp1 = Regions[i];
-if (Regions[i] == NULL) continue;
+	for (int i = 0; i < 4; i++)
+	{
+		enemy* temp1;
+		temp1 = Cstl.towers[i].Region;
+		if (Cstl.towers[i].Region == NULL)
+			continue;
+		while (temp1->link != NULL) // check whole list except head
+		{
+			if (temp1->Health != 0 && temp1->Type != 2)
+				break;
 
-while (temp1->link!=NULL)
-{
-if (temp1->link->data_enemy.TimeStep <= CurrentTimeStep&&temp1->link->data_enemy.Health == 0)
-{
-delltemp = temp1->link;
-temp1->link = delltemp->link;
-delete delltemp;
+			if (temp1->link->Health == 0)
+			{
+				Addenemy(Cstl.towers[i].DeadInRegion, temp1->link);
+				temp1->link = temp1->link->link;
+			}
+			else
+				temp1 = temp1->link;
+			
+		}
 
-}
-else
-delltemp = delltemp->link;
-
-}
-
-if (Regions[i]->data_enemy.Health == 0)
-{
-delltemp = Regions[i];
-Regions[i] = Regions[i]->link;
-}
-
-
-
-
+		if (Cstl.towers[i].Region->Health == 0) // check at head 
+		{
+			Addenemy(Cstl.towers[i].DeadInRegion, Cstl.towers[i].Region);
+			Cstl.towers[i].Region = Cstl.towers[i].Region->link;
+		}
+	}
 }
 
-}*/
 
 
 void Firstorder(Castle& Cstl)
