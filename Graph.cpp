@@ -270,10 +270,53 @@ void DrawEnemies(enemy* enemies[], int size)
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 
-/*Use this function to print a message, statistics to the user*/
-void PrintMsg(char*msg)
+/*This function to print statistics to the user*/
+void PrintStatistics(Castle Cstl,int CurrentTimeStep)
 {
-	cout << msg;
+cout<<"Total current eneimes\t";
+cout<<"A = ";
+cout << getnumberofactive(Cstl.towers[0].Region, CurrentTimeStep);
+cout<<"\tB = ";
+cout << getnumberofactive(Cstl.towers[1].Region, CurrentTimeStep);
+cout<<"\tC = ";
+cout << getnumberofactive(Cstl.towers[2].Region, CurrentTimeStep);
+cout<<"\tD = ";
+cout << getnumberofactive(Cstl.towers[3].Region, CurrentTimeStep);
+
+cout<<"\nLast time step kill\t";
+cout<<"A = ";
+cout << getnumberofkilledat(Cstl.towers[0].DeadInRegion, CurrentTimeStep - 1);
+cout<<"\tB = ";
+cout << getnumberofkilledat(Cstl.towers[1].DeadInRegion, CurrentTimeStep - 1);
+cout<<"\tC = ";
+cout << getnumberofkilledat(Cstl.towers[2].DeadInRegion, CurrentTimeStep - 1);
+cout<<"\tD = ";
+cout << getnumberofkilledat(Cstl.towers[3].DeadInRegion, CurrentTimeStep - 1);
+
+
+cout<<"\nTotal killed by\t\t";
+cout<<"A = ";
+cout<< getTotalnumberofKilled(Cstl.towers[0].DeadInRegion);
+cout<<"\tB = ";
+cout << getTotalnumberofKilled(Cstl.towers[1].DeadInRegion);
+cout<<"\tC = ";
+cout << getTotalnumberofKilled(Cstl.towers[2].DeadInRegion);
+cout<<"\tD = ";
+cout << getTotalnumberofKilled(Cstl.towers[3].DeadInRegion);
+
+
+
+cout<<"\nUnpaved distance\t";
+cout<<"A = ";
+cout << Cstl.towers[0].unpaved_dsitanse;
+cout<<"\tB = ";
+cout << Cstl.towers[1].unpaved_dsitanse;
+cout<<"\tC = ";
+cout << Cstl.towers[2].unpaved_dsitanse;
+cout<<"\tD = ";
+cout << Cstl.towers[3].unpaved_dsitanse;
+
+cout << endl;
 }
 
 // this fucntion helps to return nubmer of active enemies in ant region

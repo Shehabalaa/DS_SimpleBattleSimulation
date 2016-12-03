@@ -113,8 +113,8 @@ void DrawEnemy(const enemy& E, int Ypos = 0);
 /*A function to draw a list of enemies exist in all regions and ensure there is no overflow in the drawing*/
 void DrawEnemies(enemy* enemies[], int size);
 
-/*Student use this function to print his/her message*/
-void PrintMsg(char*msg);
+/*This function to print statistics to the user*/
+void PrintStatistics(Castle, int);
 
 // printing statistics file
 void PrintstatisticFile(Castle,int,int);

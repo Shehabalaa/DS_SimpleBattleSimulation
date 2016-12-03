@@ -20,6 +20,8 @@ void main() {
 	Cstl.W = CastleWidth;
 	Cstl.L = CastleLength;
 	int CurrentTimeStep = -1;
+	if (gamemode == 2)
+		(CurrentTimeStep = -2);
 	int gameresult = 0; // 0 game is on 1 means win 2 means lose 3 means draw
 	int TOT_enemies = 0; // total number of enemies
 
@@ -36,7 +38,8 @@ void main() {
 		CurrentTimeStep++;
 
 		// Directly before fight
-		AdjustShieldedPriorityandReorder(Cstl, c1, c2, c3);
+		if (CurrentTimeStep >= 0)
+			AdjustShieldedPriorityandReorder(Cstl, c1, c2, c3);
 
 
 
@@ -46,7 +49,8 @@ void main() {
 
 		//Fight Logic
 
-		Fight(Cstl,CurrentTimeStep);
+		if(CurrentTimeStep>=0)
+			Fight(Cstl,CurrentTimeStep);
 
 		// After Fight
 
@@ -73,7 +77,7 @@ void main() {
 
 
 
-		if (gamemode != 3)//start by showing the enemies
+		if (gamemode != 3)
 		{
 			DrawCastle(Cstl, CurrentTimeStep);
 			int arrsize = 0;
@@ -81,58 +85,10 @@ void main() {
 			if (enemies_show != NULL)
 				DrawEnemies(enemies_show, arrsize);
 
+			PrintStatistics(Cstl, CurrentTimeStep);// Print all Statistics on screen
 
 
-			PrintMsg("Total current eneimes\t");
-			PrintMsg("A = ");
-			cout << getnumberofactive(Cstl.towers[0].Region, CurrentTimeStep);
-			PrintMsg("\tB = ");
-			cout << getnumberofactive(Cstl.towers[1].Region, CurrentTimeStep);
-			PrintMsg("\tC = ");
-			cout << getnumberofactive(Cstl.towers[2].Region, CurrentTimeStep);
-			PrintMsg("\tD = ");
-			cout << getnumberofactive(Cstl.towers[3].Region, CurrentTimeStep);
-
-			PrintMsg("\nLast time step kill\t");
-			PrintMsg("A = ");
-			cout << getnumberofkilledat(Cstl.towers[0].DeadInRegion, CurrentTimeStep - 1);
-			PrintMsg("\tB = ");
-			cout << getnumberofkilledat(Cstl.towers[1].DeadInRegion, CurrentTimeStep - 1);
-			PrintMsg("\tC = ");
-			cout << getnumberofkilledat(Cstl.towers[2].DeadInRegion, CurrentTimeStep - 1);
-			PrintMsg("\tD = ");
-			cout << getnumberofkilledat(Cstl.towers[3].DeadInRegion, CurrentTimeStep - 1);
-
-
-			PrintMsg("\nTotal killed by\t\t");
-			PrintMsg("A = ");
-			cout << getTotalnumberofKilled(Cstl.towers[0].DeadInRegion);
-			PrintMsg("\tB = ");
-			cout << getTotalnumberofKilled(Cstl.towers[1].DeadInRegion);
-			PrintMsg("\tC = ");
-			cout << getTotalnumberofKilled(Cstl.towers[2].DeadInRegion);
-			PrintMsg("\tD = ");
-			cout << getTotalnumberofKilled(Cstl.towers[3].DeadInRegion);
-
-
-
-			PrintMsg("\nUnpaved distance\t");
-			PrintMsg("A = ");
-			cout << Cstl.towers[0].unpaved_dsitanse;
-			PrintMsg("\tB = ");
-			cout << Cstl.towers[1].unpaved_dsitanse;
-			PrintMsg("\tC = ");
-			cout << Cstl.towers[2].unpaved_dsitanse;
-			PrintMsg("\tD = ");
-			cout << Cstl.towers[3].unpaved_dsitanse;
-
-
-
-
-
-			cout << endl;
-
-			if (CurrentTimeStep == 0 && gamemode == 2) PrintMsg("\nPress ENTER to start motion demo");
+			if (CurrentTimeStep == -1 && gamemode == 2) cout<<"\nPress ENTER to start motion demo";
 			if (gamemode == 2) cin.get();
 
 			for (int i = 0; i < arrsize; i++)///////////////////////////////////////////////////////////////////
