@@ -149,6 +149,9 @@ void Firstorder(Castle& Cstl)
 					E.RemainingTimetoShoot = temp1->RemainingTimetoShoot;
 					E.TimeStep = temp1->TimeStep;
 					E.Type = temp1->Type;
+					E.firstshot = temp1->firstshot;
+					E.TFS = temp1->TFS;
+					E.KTS = temp1->KTS;
 					//
 					temp1->Distance = temp2->Distance;
 					temp1->Health = temp2->Health;
@@ -160,6 +163,9 @@ void Firstorder(Castle& Cstl)
 					temp1->RemainingTimetoShoot = temp2->RemainingTimetoShoot;
 					temp1->TimeStep = temp2->TimeStep;
 					temp1->Type = temp2->Type;
+					temp1->firstshot = temp2->firstshot;
+					temp1->TFS = temp2->TFS;
+					temp1->KTS = temp2->KTS;
 					//
 					temp2->Distance = E.Distance;
 					temp2->Health = E.Health;
@@ -171,6 +177,9 @@ void Firstorder(Castle& Cstl)
 					temp2->RemainingTimetoShoot = E.RemainingTimetoShoot;
 					temp2->TimeStep = E.TimeStep;
 					temp2->Type = E.Type;
+					temp2->firstshot = E.firstshot;
+					temp2->TFS = E.TFS;
+					temp2->KTS = E.KTS;
 					//
 				}
 
@@ -225,6 +234,10 @@ void AdjustShieldedPriorityandReorder(Castle& Cstl, float c1, float c2, float c3
 					E.RemainingTimetoShoot = temp1->RemainingTimetoShoot;
 					E.TimeStep = temp1->TimeStep;
 					E.Type = temp1->Type;
+					E.firstshot = temp1->firstshot;
+					E.TFS = temp1->TFS;
+					E.KTS = temp1->KTS;
+					
 					//
 					temp1->Distance = temp2->Distance;
 					temp1->Health = temp2->Health;
@@ -236,6 +249,9 @@ void AdjustShieldedPriorityandReorder(Castle& Cstl, float c1, float c2, float c3
 					temp1->RemainingTimetoShoot = temp2->RemainingTimetoShoot;
 					temp1->TimeStep = temp2->TimeStep;
 					temp1->Type = temp2->Type;
+					temp1->firstshot = temp2->firstshot;
+					temp1->TFS = temp2->TFS;
+					temp1->KTS = temp2->KTS;
 					//
 					temp2->Distance = E.Distance;
 					temp2->Health = E.Health;
@@ -247,6 +263,9 @@ void AdjustShieldedPriorityandReorder(Castle& Cstl, float c1, float c2, float c3
 					temp2->RemainingTimetoShoot = E.RemainingTimetoShoot;
 					temp2->TimeStep = E.TimeStep;
 					temp2->Type = E.Type;
+					temp2->firstshot = E.firstshot;
+					temp2->TFS = E.TFS;
+					temp2->KTS = E.KTS;
 					//
 
 				}

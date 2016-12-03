@@ -21,27 +21,17 @@ void PrintTest(Castle& Cstl,int CurrentTimeStep)
 			}
 
 			enemy * ptrActive = Cstl.towers[i].Region;
-			/*int activeenemies = 0;
-			while (ptrActive != NULL) //get number of active enemies
-			{SampleFunction
-				if (ptrActive->data_enemy.TimeStep <= CurrentTimeStep)
-					activeenemies++;
-				ptrActive = ptrActive->link;
-
-			}*/
-
+			
 			ptrActive = Cstl.towers[i].Region;//start printing active enemies
 			Outfile << "Enimies:"  << endl;
 			Outfile << setiosflags(ios::left) << setw(5) << "ID" << setw(7) << "Type" << setw(11) << "TimeStep";
-			Outfile << setw(9) << "Health" << setw(12) << "FirePower" << "Priority" << endl;
+			Outfile << setw(9) << "TFS" << setw(12) << "Health" << "Priority" << endl;
 			while (ptrActive != NULL)
 			{
-				//if (ptrActive->data_enemy.TimeStep <= CurrentTimeStep)
-				//{
 					Outfile << setiosflags(ios::left) << setw(5) << ptrActive->ID << setw(7) << ptrActive->Type;
-					Outfile << setw(11) << ptrActive->TimeStep << setw(9) << ptrActive->Health;
-					Outfile << setw(12) << ptrActive->PW << ptrActive->Priority << endl;
-				//}
+					Outfile << setw(11) << ptrActive->TimeStep << setw(9) << ptrActive->TFS;
+					Outfile << setw(12) << ptrActive->PW << ptrActive->Health << endl;
+
 				ptrActive = ptrActive->link;
 			}
 

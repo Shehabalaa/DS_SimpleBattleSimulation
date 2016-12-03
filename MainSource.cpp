@@ -53,9 +53,8 @@ void main() {
 		AdjustDistance(Cstl,CurrentTimeStep);
 		bool x=CheckTowersAndEnemiesRegions(Cstl); //to adjust regions
 		if(x)
-		{Firstorder(Cstl);
-		AdjustShieldedPriorityandReorder(Cstl, c1, c2, c3);
-		}
+			Firstorder(Cstl);
+		
 
 		if (gamemode != 3)
 		{
@@ -78,7 +77,7 @@ void main() {
 		}
 
 
-
+		PrintTest(Cstl, CurrentTimeStep);
 
 		gameresult = CheckGameReuslt(Cstl); // determine game result
 
@@ -93,7 +92,7 @@ void main() {
 
 	}
 
-
+	
 
 
 	if (gamemode == 3)
@@ -105,26 +104,6 @@ void main() {
 
 }
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

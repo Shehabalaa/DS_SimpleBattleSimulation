@@ -15,29 +15,28 @@ void Fight(Castle& Cstl, int CurrentTimeStep)
 			{
 				if (temp->Type == 2)
 				{
-						k = 2;
-						DTE = ((float(1) / temp->Distance)*Cstl.towers[i].F_Pow*(1 / k));
-						temp->Health -= DTE;
-						No_ofEnemies++;
-						Cstl.towers[i].TotlaDamage += DTE;
-						if (temp->firstshot)
-						{
-							temp->TFS = CurrentTimeStep;
-							temp->firstshot = false;
-						}
+					k = 2;
+					DTE = ((float(1) / temp->Distance)*Cstl.towers[i].F_Pow*(1 / k));
+					temp->Health -= DTE;
+					No_ofEnemies++;
+					Cstl.towers[i].TotlaDamage += DTE;
+					if (temp->firstshot)
+					{
+						temp->TFS = CurrentTimeStep;
+						temp->firstshot = false;
+					}
 
-						if (temp->Health <= 0)
-						{
-							temp->Health = 0;
-							temp->KTS = CurrentTimeStep;
+					if (temp->Health <= 0)
+					{
+						temp->Health = 0;
+						temp->KTS = CurrentTimeStep;
 
-						}
+					}
 
 
 				}
 
 				else
-
 				{
 
 					k = 1;
@@ -66,8 +65,8 @@ void Fight(Castle& Cstl, int CurrentTimeStep)
 
 			temp = temp->link;
 
-
 		}
+
 	}
 
 	adjustkilled(Cstl);// to move killed for their list to deadlist

@@ -12,16 +12,16 @@ void PrintstatisticFile(Castle Cstl,int gameresult,int TOT_enemies)
 	{
 		enemy* temp1;
 		if (Cstl.towers[i].DeadInRegion == NULL) continue;
-		temp1 = Cstl.towers[i].Region;
+		temp1 = Cstl.towers[i].DeadInRegion;
 		while (!!temp1) {
 			int FD = temp1->TFS - temp1->TimeStep; // fight delay
 			AVG_FD += FD; // get AVG_FD of all step by step firstly get sum and end divide by  number of dead enemies
 			int KD = temp1->KTS - temp1->TFS; // kill delay
-			AVG_KD += FD; // get AVG_KD of all step by step firstly get sum and end divide by  number of dead enemies
+			AVG_KD += KD; // get AVG_KD of all step by step firstly get sum and end divide by  number of dead enemies
 			int FT = FD + KD; // fight time
 			outfile << setw(5) << temp1->KTS<<setw(3) << ++s <<setw(4) << FD<< setw(4) << KD;
 			outfile << FT<<endl;
-		
+			temp1 = temp1->link;
 		}
 	}
 	if (s != 0)
