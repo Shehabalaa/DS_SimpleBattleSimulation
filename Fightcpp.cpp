@@ -1,6 +1,6 @@
 #include "Header.h"
 
-void Fight(Castle& Cstl, int CurrentTimeStep)
+void Fight(Castle & Cstl, int CurrentTimeStep)
 {
 	float k = 0; float DTE = 0; float DET = 0; //D = damage T =TOWER E = ENEMY TOT=TOTAL
 
@@ -8,6 +8,8 @@ void Fight(Castle& Cstl, int CurrentTimeStep)
 	{
 		int No_ofEnemies = 1;
 		enemy * temp = Cstl.towers[i].Region;
+		if (Cstl.towers[i].Region == NULL)
+			continue;
 
 		while (temp != NULL && No_ofEnemies <= Cstl.towers[i].N_enemies)
 		{
@@ -15,24 +17,12 @@ void Fight(Castle& Cstl, int CurrentTimeStep)
 			{
 				if (temp->Type == 2)
 				{
-						k = 2;
-						DTE = ((float(1) / temp->Distance)*Cstl.towers[i].F_Pow*(1 / k));
-						temp->Health -= DTE;
-						No_ofEnemies++;
-						Cstl.towers[i].TotlaDamage += DTE;
-						if (temp->firstshot)
-						{
-							temp->TFS = CurrentTimeStep;
-							temp->firstshot = false;
-						}
-
-						if (temp->Health <= 0)
-						{
-							temp->Health = 0;
-							temp->KTS = CurrentTimeStep;
-
-						}
-
+					k = 2;
+					DTE = ((float(1) / temp->Distance)*Cstl.towers[i].F_Pow*(1 / k));
+					temp->Health -= DTE;
+					Cstl.towers[i].TotlaDamage += DTE;
+					No_ofEnemies++;
+					if (temp->Health < 0) temp->Health = 0;
 
 				}
 
@@ -43,20 +33,9 @@ void Fight(Castle& Cstl, int CurrentTimeStep)
 					k = 1;
 					DTE = ((float(1) / temp->Distance)*Cstl.towers[i].F_Pow*(1 / k));
 					temp->Health -= DTE;
-					No_ofEnemies++;
 					Cstl.towers[i].TotlaDamage += DTE;
-					if (temp->firstshot)
-					{
-						temp->TFS = CurrentTimeStep;
-						temp->firstshot = false;
-					}
-
-					if (temp->Health <= 0)
-					{
-						temp->Health = 0;
-						temp->KTS = CurrentTimeStep;
-
-					}
+					No_ofEnemies++;
+					if (temp->Health < 0) temp->Health = 0;
 
 				}
 			}
@@ -70,12 +49,12 @@ void Fight(Castle& Cstl, int CurrentTimeStep)
 		}
 	}
 
-	adjustkilled(Cstl);// to move killed for their list to deadlist
+
 
 
 	for (int i = 0; i < 4; i++)
 	{
-
+		if (Cstl.towers[i].Health == 0) continue;
 		enemy * temp2 = Cstl.towers[i].Region;
 		while (temp2 != NULL)
 		{
@@ -85,7 +64,7 @@ void Fight(Castle& Cstl, int CurrentTimeStep)
 				{
 					if (temp2->Type == 2)
 						k = 2;
-					else
+					if (temp2->Type == 1)
 						k = 1;
 
 					DET = ((k / temp2->Distance)*temp2->PW);
@@ -96,13 +75,10 @@ void Fight(Castle& Cstl, int CurrentTimeStep)
 				else if (temp2->RemainingTimetoShoot > 0) temp2->RemainingTimetoShoot--;
 			}
 
-			else if (temp2->TimeStep > CurrentTimeStep&&temp2->Type != 2)
-				break;
-
-			
+			else if (temp2->Type != 2) break;
+			if (Cstl.towers[i].Health < 0) Cstl.towers[i].Health = 0;
 			temp2 = temp2->link;
 		}
-		if (Cstl.towers[i].Health < 0) Cstl.towers[i].Health = 0;
 	}
 
 

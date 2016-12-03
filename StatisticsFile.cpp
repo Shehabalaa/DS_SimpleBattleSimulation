@@ -43,7 +43,7 @@ void PrintstatisticFile(Castle Cstl,int gameresult,int TOT_enemies)
 
 	outfile << setiosflags(ios::left);
 	for (int i = 0; i < 4; i++)
-		outfile << setw(18) << Cstl.towers[i].unpaved_dsitanse;
+		outfile << setw(18) << Cstl.towers[i].unpaved_distance;
 
 	outfile << endl<<endl;
 	if (gameresult == 1)

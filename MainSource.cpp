@@ -38,44 +38,24 @@ void main() {
 		CurrentTimeStep++;
 
 		// Directly before fight
-		if (CurrentTimeStep >= 0)
+		if (CurrentTimeStep >= 0) // in step by step we start with -1 showing only screen
 			AdjustShieldedPriorityandReorder(Cstl, c1, c2, c3);
-
-
-
-
 
 
 
 		//Fight Logic
 
-		if(CurrentTimeStep>=0)
+		if(CurrentTimeStep>=0) // in step by step we start with -1 showing only screen
 			Fight(Cstl,CurrentTimeStep);
 
 		// After Fight
 
-
-
-
-
-
-
-
-
-
-		//PrintTest(Cstl, CurrentTimeStep);
-
-
-
-
-
-
-
-
-
-		
-
-
+		AdjustDistance(Cstl,CurrentTimeStep);
+		bool x=CheckTowersAndEnemiesRegions(Cstl); //to adjust regions
+		if(x)
+		{Firstorder(Cstl);
+		AdjustShieldedPriorityandReorder(Cstl, c1, c2, c3);
+		}
 
 		if (gamemode != 3)
 		{
@@ -91,18 +71,26 @@ void main() {
 			if (CurrentTimeStep == -1 && gamemode == 2) cout<<"\nPress ENTER to start motion demo";
 			if (gamemode == 2) cin.get();
 
-			for (int i = 0; i < arrsize; i++)///////////////////////////////////////////////////////////////////
-				enemies_show[i]->Distance --;///////////////////////////////////////
-
 			delete[] enemies_show;// remove after graph
 
 			if (gamemode == 1) Sleep(1000);
-			if (CurrentTimeStep == 60)
-				break;
-
-
 
 		}
+
+
+
+
+		gameresult = CheckGameReuslt(Cstl); // determine game result
+
+		if (gameresult == 1)
+			cout << "Game is Win:\n";
+		else if(gameresult ==2)
+			cout << "Game is Lose:\n";
+		else if (gameresult == 3)
+			cout << "Game is Draw :\n";
+		// if game result == 0 game continue
+
+
 	}
 
 
@@ -117,21 +105,6 @@ void main() {
 
 }
 	
-
-
-/*
-when go to fight 
-if(!isshot)
-{ptrnew->TFS=currenttimestep;
-ishot=true;
-}
-
-
-wlma ymot 
-ptrnew->KTS=currenttimestep; w5las
-*/
-
-
 
 
 

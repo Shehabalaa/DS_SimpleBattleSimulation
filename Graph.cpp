@@ -268,6 +268,56 @@ void DrawEnemies(enemy* enemies[], int size)
 	}
 	gotoxy(0, CmdHeight - 1);
 }
+
+
+
+//
+enemy** EnimiesReadyForGraph(Castle Cstl, int Currenttimestep, int &size)
+{
+	for (int i = 0; i < 4; i++)// get n_enm
+	{
+		if (Cstl.towers[i].Region == NULL)
+			continue;
+		enemy*temp = Cstl.towers[i].Region;
+		while (temp != NULL)
+		{
+			if (temp->TimeStep <= Currenttimestep)
+				size++;
+			else if (temp->Type != 2)
+				break;
+			temp = temp->link;
+		}
+
+	}
+
+	if (size == 0)// if there is no active enmeies in this time step
+		return NULL;
+
+	enemy** enemies = new enemy*[size]; //array of pointers
+	int j = 0; // index of array of pointers
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (Cstl.towers[i].Region == NULL)
+			continue;
+
+		enemy*temp = Cstl.towers[i].Region;
+		while (temp != NULL)
+		{
+			if (temp->TimeStep <= Currenttimestep)
+			{
+
+				enemies[j] = temp;
+				j++;
+			}
+			temp = temp->link;
+		}
+	}
+	return enemies;
+
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 /*This function to print statistics to the user*/
@@ -308,13 +358,13 @@ cout << getTotalnumberofKilled(Cstl.towers[3].DeadInRegion);
 
 cout<<"\nUnpaved distance\t";
 cout<<"A = ";
-cout << Cstl.towers[0].unpaved_dsitanse;
+cout << Cstl.towers[0].unpaved_distance;
 cout<<"\tB = ";
-cout << Cstl.towers[1].unpaved_dsitanse;
+cout << Cstl.towers[1].unpaved_distance;
 cout<<"\tC = ";
-cout << Cstl.towers[2].unpaved_dsitanse;
+cout << Cstl.towers[2].unpaved_distance;
 cout<<"\tD = ";
-cout << Cstl.towers[3].unpaved_dsitanse;
+cout << Cstl.towers[3].unpaved_distance;
 
 cout << endl;
 }

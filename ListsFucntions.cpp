@@ -9,6 +9,35 @@ void Addenemy(enemy*& head, enemy* ptrnew)
 
 }
 
+void append(enemy*& head1, enemy* head2)
+{
+	enemy  * temp = head1;
+	if (head1 == NULL)
+		head1 = head2;
+
+	else 
+	{
+		while (temp->link != NULL)
+			temp = temp->link;
+
+		temp->link = head2;
+	}
+
+
+
+}
+
+void afterappend(enemy* head, int unpavedinnewregion)
+{
+	while (head != NULL)
+	{
+		if (head->Distance < unpavedinnewregion)
+			head->Distance = unpavedinnewregion;
+		head = head->link;
+	}
+}
+
+
 /*void Deleteenemy(Node* Pretemp)
 {
 	Node* Temp;
@@ -234,50 +263,6 @@ void AdjustShieldedPriorityandReorder(Castle& Cstl, float c1, float c2, float c3
 
 
 
-enemy** EnimiesReadyForGraph(Castle Cstl,int Currenttimestep,int &size)
-{
-	for (int i = 0; i < 4; i++)// get n_enm
-	{
-		if (Cstl.towers[i].Region == NULL)
-			continue;
-		enemy*temp = Cstl.towers[i].Region;
-		while (temp != NULL)
-		{
-			if (temp->TimeStep <= Currenttimestep)
-				size++;
-			else if (temp->Type != 2)
-				break;
-			temp = temp->link;
-		}
-
-	}
-
-	if (size == 0)// if there is no active enmeies in this time step
-		return NULL;
-
-		enemy** enemies = new enemy*[size]; //array of pointers
-		int j = 0; // index of array of pointers
-
-		for (int i = 0; i < 4; i++)
-		{
-			if (Cstl.towers[i].Region == NULL)
-				continue;
-
-			enemy*temp = Cstl.towers[i].Region;
-			while (temp != NULL)
-			{
-				if (temp->TimeStep <= Currenttimestep)
-				{
-
-					enemies[j] = temp;
-					j++;
-				}
-				temp = temp->link;
-			}
-		}
-		return enemies;
-
-}
 
 
 

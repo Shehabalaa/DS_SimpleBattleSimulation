@@ -36,7 +36,7 @@ struct Tower
 	int Health; //Tower Health
 	int N_enemies;  //number of enemies that tower will attack each timestep
 	int  F_Pow;     //fire power of the tower
-	int unpaved_dsitanse;
+	int unpaved_distance; // evert tower has region that has unpaved distance
 	float TotlaDamage;
 	enemy* Region; // enemy list
 	enemy* DeadInRegion;// deadenemy list
@@ -54,21 +54,32 @@ struct Castle
 };
 
 
-//Fucntions prototypes before graph
+//Fucntions' prototypes before Fight
 
 bool FileloadData(Castle&, float &, float &, float&,int&);
-void PrintTest(Castle&, int);
 void AdjustShieldedPriorityandReorder(Castle&, float, float, float);
-void Addenemy(enemy*&, enemy*);
-void Destroy(enemy*&);
-void Firstorder(Castle& Cstl);
-//void Deleteenemy(Node*&, Node*);
-void adjustkilled(Castle& );
-//void void Sortlinkedlistbyhp(Node*);#pragma once
+
+//Fucntions' prototypes of fight
 void Fight(Castle &, int);
-enemy** EnimiesReadyForGraph(Castle, int, int&);
 
 
+//Fucntions' prototypes after fight
+void AdjustDistance(Castle&, int);
+bool CheckTowersAndEnemiesRegions(Castle& Cstl);
+int CheckGameReuslt(Castle Cstl);
+
+
+
+// some lists Fucntions' prototypes
+void Addenemy(enemy*&, enemy*);
+void Firstorder(Castle& Cstl);
+void adjustkilled(Castle&);
+void append(enemy*& head1, enemy* head2);
+void afterappend(enemy*,int);
+
+
+//just test function weil be deleted later
+void PrintTest(Castle&, int);
 
 
 //Graph Code
@@ -92,6 +103,9 @@ enemy** EnimiesReadyForGraph(Castle, int, int&);
 
 
 //Functions Prototype of graph
+
+// Function that collect enemies ready for graph
+enemy** EnimiesReadyForGraph(Castle, int, int&);
 
 /*A function to set the position of cursor on the screen*/
 void gotoxy(int x, int y);
@@ -125,7 +139,6 @@ int getnumberofactive(enemy *,int);
 
 // this fucntion helps to return nubmer of killed enemies in any regiosn at certian timestep
 int getnumberofkilledat(enemy *, int);
-
 
 
 // this fucntion helps to return total nubmer of killed enemies in such  regiosn
