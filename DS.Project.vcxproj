@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BeforeFight.cpp" />
+    <ClCompile Include="Fight.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="ListsFucntions.cpp" />
     <ClCompile Include="MainSource.cpp" />

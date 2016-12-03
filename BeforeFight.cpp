@@ -41,7 +41,7 @@ bool FileloadData(Castle &Cstl, float &c1, float &c2, float&c3,int&TOT)
 		ptrnew->Distance = 60;
 		ptrnew->RemainingTimetoShoot = 0;
 		ptrnew->Priority = 0;
-		ptrnew->isshot = false;
+		ptrnew->firstshot = true;
 		ptrnew->KTS = -1;
 		ptrnew->TFS = -1;
 

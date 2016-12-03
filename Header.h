@@ -21,7 +21,7 @@ struct enemy
 	int Distance;	//Distance to the Castle
 	float Priority;
 	int RemainingTimetoShoot;
-	bool isshot; // tells if enemy shot by tower or not 
+	bool firstshot; // tells if enemy first shot by tower
 	int TFS; // time first shot
 	int KTS; // timestep that killed in
 	enemy* link;
@@ -63,8 +63,9 @@ void Addenemy(enemy*&, enemy*);
 void Destroy(enemy*&);
 void Firstorder(Castle& Cstl);
 //void Deleteenemy(Node*&, Node*);
-//void Removekilledenemies(Castle&,int);
+void adjustkilled(Castle& );
 //void void Sortlinkedlistbyhp(Node*);#pragma once
+void Fight(Castle & Cstl, int CurrentTimeStep);
 enemy** EnimiesReadyForGraph(Castle, int, int&);
 
 

@@ -46,10 +46,7 @@ void main() {
 
 		//Fight Logic
 
-
-
-
-
+		Fight(Cstl,CurrentTimeStep);
 
 		// After Fight
 
@@ -73,6 +70,8 @@ void main() {
 
 
 		
+
+
 
 		if (gamemode != 3)//start by showing the enemies
 		{
@@ -154,7 +153,10 @@ void main() {
 
 
 	if (gamemode == 3)
+	{
 		PrintstatisticFile(Cstl, gameresult, TOT_enemies);
+		cout << "Please Check Statistics file:\n";
+	}
 
 
 }
