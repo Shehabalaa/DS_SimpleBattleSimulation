@@ -49,8 +49,10 @@ void adjustkilled(Castle& Cstl)
 
 			if (temp1->link->Health == 0)
 			{
-				Addenemy(Cstl.towers[i].DeadInRegion, temp1->link);
+				enemy*temp2 = temp1->link;
 				temp1->link = temp1->link->link;
+				Addenemy(Cstl.towers[i].DeadInRegion,temp2);
+				
 			}
 			else
 				temp1 = temp1->link;
@@ -59,8 +61,10 @@ void adjustkilled(Castle& Cstl)
 
 		if (Cstl.towers[i].Region->Health == 0) // check at head 
 		{
-			Addenemy(Cstl.towers[i].DeadInRegion, Cstl.towers[i].Region);
+			enemy*temp2 = Cstl.towers[i].Region;
 			Cstl.towers[i].Region = Cstl.towers[i].Region->link;
+			Addenemy(Cstl.towers[i].DeadInRegion, temp2);
+			
 		}
 	}
 }

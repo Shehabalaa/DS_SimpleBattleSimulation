@@ -69,7 +69,6 @@ void Fight(Castle & Cstl, int CurrentTimeStep)
 
 		}
 	}
-
 	adjustkilled(Cstl);// to move killed for their list to deadlist
 
 
@@ -99,9 +98,10 @@ void Fight(Castle & Cstl, int CurrentTimeStep)
 			else if (temp2->TimeStep > CurrentTimeStep&&temp2->Type != 2)
 				break;
 
-			if (Cstl.towers[i].Health < 0) Cstl.towers[i].Health = 0;
+			
 			temp2 = temp2->link;
 		}
+		if (Cstl.towers[i].Health < 0) Cstl.towers[i].Health = 0;
 	}
 
 

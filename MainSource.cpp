@@ -59,7 +59,7 @@ void main() {
 
 
 
-		PrintTest(Cstl, CurrentTimeStep);
+		//PrintTest(Cstl, CurrentTimeStep);
 
 
 

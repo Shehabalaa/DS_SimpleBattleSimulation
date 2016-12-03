@@ -65,7 +65,7 @@ void Firstorder(Castle& Cstl);
 //void Deleteenemy(Node*&, Node*);
 void adjustkilled(Castle& );
 //void void Sortlinkedlistbyhp(Node*);#pragma once
-void Fight(Castle & Cstl, int CurrentTimeStep);
+void Fight(Castle &, int);
 enemy** EnimiesReadyForGraph(Castle, int, int&);
 
 
