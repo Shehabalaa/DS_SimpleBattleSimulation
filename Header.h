@@ -82,8 +82,9 @@ enemy** EnimiesReadyForGraph(Castle, int, int&);
 #define CastleYStrt		(CmdHeight/2-(CastleLength/2))
 #define TowerWidth      7
 #define TowerLength     3
-
-#define EnemyShape		0117  //ASCII code of enemy char shape 
+//ASCII code of enemy char shape 
+#define EnemyShapeRight		60 // for right regions
+#define EnemyShapeLeft		62 // for left regions 
 
 
 

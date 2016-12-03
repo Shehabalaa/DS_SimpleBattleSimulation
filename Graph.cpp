@@ -178,9 +178,9 @@ void DrawEnemy(const enemy& E, int Ypos)
 		color(FOREGROUND_RED);
 	}
 
-
-	cout << (char)EnemyShape; //Draw the enemy
-
+	if(E.Region==1|| E.Region == 2)
+	cout << (char)EnemyShapeRight; //Draw the enemy
+	else cout << (char)EnemyShapeLeft;
 	color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 }
 ///////////////////////////////////////////////////////////////////////////////////////
