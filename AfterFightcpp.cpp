@@ -8,18 +8,20 @@ void AdjustDistance(Castle& Cstl, int CurrentTimeStep)
 	for (int i = 0; i < 4; i++)
 	{
 		enemy* temp = Cstl.towers[i].Region; 
-		while (temp != NULL) 
+
+		while (temp != NULL&&Cstl.towers[i].unpaved_distance>2)
 		{
-			if (temp->TimeStep <= CurrentTimeStep&& temp->Distance > 2)
+			if (temp->TimeStep <= CurrentTimeStep)
 			{
-				if (temp->Distance > Cstl.towers[i].unpaved_distance)
-					temp->Distance--;
-				else if (temp->Distance == Cstl.towers[i].unpaved_distance&&temp->Type == 0)
+				if(temp->Type==0&&temp->Distance== Cstl.towers[i].unpaved_distance)
 				{
 					if (temp->RemainingTimetoShoot == 0)
 					{
 						Cstl.towers[i].unpaved_distance -= temp->PW;
-						temp->Distance--;
+
+						if (Cstl.towers[i].unpaved_distance < 2)
+							Cstl.towers[i].unpaved_distance = 2;
+
 						temp->RemainingTimetoShoot = temp->Reload_Period;
 					}
 					else
@@ -27,8 +29,27 @@ void AdjustDistance(Castle& Cstl, int CurrentTimeStep)
 						temp->RemainingTimetoShoot--;
 
 					}
-
 				}
+
+			}
+			else if(temp->Type != 2)
+				break;
+			temp = temp->link;
+		}
+
+
+
+		temp = Cstl.towers[i].Region;
+		while (temp != NULL) 
+		{
+			if (temp->TimeStep <= CurrentTimeStep&& temp->Distance > 2)
+			{
+
+
+
+				if (temp->Distance > Cstl.towers[i].unpaved_distance)
+					temp->Distance--;
+				
 
 
 			}
