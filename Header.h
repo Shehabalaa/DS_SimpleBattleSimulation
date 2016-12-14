@@ -78,10 +78,6 @@ void append(enemy*& head1, enemy* head2);
 void afterappend(enemy*,int);
 
 
-//just test function weil be deleted later
-void PrintTest(Castle&, int);
-
-
 //Graph Code
 
 //constants

@@ -152,7 +152,6 @@
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="ListsFucntions.cpp" />
     <ClCompile Include="MainSource.cpp" />
-    <ClCompile Include="PrintTest.cpp" />
     <ClCompile Include="StatisticsFile.cpp" />
   </ItemGroup>
   <ItemGroup>

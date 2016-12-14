@@ -77,8 +77,6 @@ void main() {
 		}
 
 
-		PrintTest(Cstl, CurrentTimeStep);
-
 		gameresult = CheckGameReuslt(Cstl); // determine game result
 
 		if (gameresult == 1)
