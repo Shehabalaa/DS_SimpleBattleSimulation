@@ -124,68 +124,70 @@ void Firstorder(Castle& Cstl)
 		}
 
 		//      Sort enemies after shielded by timestep
-		temp1 = Cstl.towers[i].Region;
-		temp2 = NULL;
+		temp1 = Cstl.towers[i].Region; // i will use it as curr ptr
+		temp2 = NULL; // i will use it as walker ptr
 		while (temp1 != NULL&&temp1->Type == 2)
-			temp1 = temp1->link;
+			temp1 = temp1->link;// curr i will firstly point to non shielded enemy
 
-		while (!!temp1)
+		while (!!temp1->link)
 		{
 			temp2 = temp1->link;
+			enemy* min = temp1; // min points to smalles enemy that has timestep
 			while (!!temp2)
-
 			{
-				enemy E;
-				if (temp1->TimeStep>temp2->TimeStep)
-				{
-					//
-					E.Distance = temp1->Distance;
-					E.Health = temp1->Health;
-					E.ID = temp1->ID;
-					E.Priority = temp1->Priority;
-					E.PW = temp1->PW;
-					E.Region = temp1->Region;
-					E.Reload_Period = temp1->Reload_Period;
-					E.RemainingTimetoShoot = temp1->RemainingTimetoShoot;
-					E.TimeStep = temp1->TimeStep;
-					E.Type = temp1->Type;
-					E.firstshot = temp1->firstshot;
-					E.TFS = temp1->TFS;
-					E.KTS = temp1->KTS;
-					//
-					temp1->Distance = temp2->Distance;
-					temp1->Health = temp2->Health;
-					temp1->ID = temp2->ID;
-					temp1->Priority = temp2->Priority;
-					temp1->PW = temp2->PW;
-					temp1->Region = temp2->Region;
-					temp1->Reload_Period = temp2->Reload_Period;
-					temp1->RemainingTimetoShoot = temp2->RemainingTimetoShoot;
-					temp1->TimeStep = temp2->TimeStep;
-					temp1->Type = temp2->Type;
-					temp1->firstshot = temp2->firstshot;
-					temp1->TFS = temp2->TFS;
-					temp1->KTS = temp2->KTS;
-					//
-					temp2->Distance = E.Distance;
-					temp2->Health = E.Health;
-					temp2->ID = E.ID;
-					temp2->Priority = E.Priority;
-					temp2->PW = E.PW;
-					temp2->Region = E.Region;
-					temp2->Reload_Period = E.Reload_Period;
-					temp2->RemainingTimetoShoot = E.RemainingTimetoShoot;
-					temp2->TimeStep = E.TimeStep;
-					temp2->Type = E.Type;
-					temp2->firstshot = E.firstshot;
-					temp2->TFS = E.TFS;
-					temp2->KTS = E.KTS;
-					//
-				}
+				if (temp2->TimeStep < min->TimeStep)
+					min = temp2;
 
 				temp2 = temp2->link;
-
 			}
+
+			if (temp1!=min) {
+				enemy E;
+				//
+				E.Distance = temp1->Distance;
+				E.Health = temp1->Health;
+				E.ID = temp1->ID;
+				E.Priority = temp1->Priority;
+				E.PW = temp1->PW;
+				E.Region = temp1->Region;
+				E.Reload_Period = temp1->Reload_Period;
+				E.RemainingTimetoShoot = temp1->RemainingTimetoShoot;
+				E.TimeStep = temp1->TimeStep;
+				E.Type = temp1->Type;
+				E.firstshot = temp1->firstshot;
+				E.TFS = temp1->TFS;
+				E.KTS = temp1->KTS;
+				//
+				temp1->Distance = min->Distance;
+				temp1->Health = min->Health;
+				temp1->ID = min->ID;
+				temp1->Priority = min->Priority;
+				temp1->PW = min->PW;
+				temp1->Region = min->Region;
+				temp1->Reload_Period = min->Reload_Period;
+				temp1->RemainingTimetoShoot = min->RemainingTimetoShoot;
+				temp1->TimeStep = min->TimeStep;
+				temp1->Type = min->Type;
+				temp1->firstshot = min->firstshot;
+				temp1->TFS = min->TFS;
+				temp1->KTS = min->KTS;
+				//
+				min->Distance = E.Distance;
+				min->Health = E.Health;
+				min->ID = E.ID;
+				min->Priority = E.Priority;
+				min->PW = E.PW;
+				min->Region = E.Region;
+				min->Reload_Period = E.Reload_Period;
+				min->RemainingTimetoShoot = E.RemainingTimetoShoot;
+				min->TimeStep = E.TimeStep;
+				min->Type = E.Type;
+				min->firstshot = E.firstshot;
+				min->TFS = E.TFS;
+				min->KTS = E.KTS;
+				//
+			}
+			
 			temp1 = temp1->link;
 		}
 	}
@@ -193,92 +195,6 @@ void Firstorder(Castle& Cstl)
 }
 
 
-
-
-void AdjustShieldedPriorityandReorder(Castle& Cstl, float c1, float c2, float c3)
-{
-	for (int i = 0; i < 4; i++) // For each Region do following
-	{
-		enemy*temp1 = Cstl.towers[i].Region;
-		while (temp1 != NULL) // Give Shielded new Priority
-		{
-			if (temp1->Type == 2)
-				temp1->Priority = (temp1->PW / temp1->Distance)*c1 + (c2 / (temp1->RemainingTimetoShoot + 1)) + temp1->Health*c3;
-			else
-				break;
-			temp1 = temp1->link;
-
-		}
-
-		//ReorderShielded
-
-		enemy*temp2 = NULL;
-		temp1 = Cstl.towers[i].Region;
-		while (!!temp1 && !!temp1->Priority)
-		{
-			temp2 = temp1->link;
-			while (!!temp2 && !!temp2->Priority)
-
-			{
-				enemy E;
-				if (temp1->Priority < temp2->Priority)
-				{
-					//
-					E.Distance = temp1->Distance;
-					E.Health = temp1->Health;
-					E.ID = temp1->ID;
-					E.Priority = temp1->Priority;
-					E.PW = temp1->PW;
-					E.Region = temp1->Region;
-					E.Reload_Period = temp1->Reload_Period;
-					E.RemainingTimetoShoot = temp1->RemainingTimetoShoot;
-					E.TimeStep = temp1->TimeStep;
-					E.Type = temp1->Type;
-					E.firstshot = temp1->firstshot;
-					E.TFS = temp1->TFS;
-					E.KTS = temp1->KTS;
-					
-					//
-					temp1->Distance = temp2->Distance;
-					temp1->Health = temp2->Health;
-					temp1->ID = temp2->ID;
-					temp1->Priority = temp2->Priority;
-					temp1->PW = temp2->PW;
-					temp1->Region = temp2->Region;
-					temp1->Reload_Period = temp2->Reload_Period;
-					temp1->RemainingTimetoShoot = temp2->RemainingTimetoShoot;
-					temp1->TimeStep = temp2->TimeStep;
-					temp1->Type = temp2->Type;
-					temp1->firstshot = temp2->firstshot;
-					temp1->TFS = temp2->TFS;
-					temp1->KTS = temp2->KTS;
-					//
-					temp2->Distance = E.Distance;
-					temp2->Health = E.Health;
-					temp2->ID = E.ID;
-					temp2->Priority = E.Priority;
-					temp2->PW = E.PW;
-					temp2->Region = E.Region;
-					temp2->Reload_Period = E.Reload_Period;
-					temp2->RemainingTimetoShoot = E.RemainingTimetoShoot;
-					temp2->TimeStep = E.TimeStep;
-					temp2->Type = E.Type;
-					temp2->firstshot = E.firstshot;
-					temp2->TFS = E.TFS;
-					temp2->KTS = E.KTS;
-					//
-
-				}
-
-				temp2 = temp2->link;
-
-			}
-			temp1 = temp1->link;
-		}
-
-	}
-
-}
 
 
 

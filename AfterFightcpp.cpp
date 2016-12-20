@@ -53,7 +53,7 @@ void AdjustDistance(Castle& Cstl, int CurrentTimeStep)
 
 
 			}
-			else if (temp->Type != 2) // to avoid uselless traverse
+			else if (temp->TimeStep > CurrentTimeStep&&temp->Type != 2  ) // to avoid uselless traverse
 				break;
 
 			temp = temp->link;

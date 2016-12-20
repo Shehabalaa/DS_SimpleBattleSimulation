@@ -54,6 +54,8 @@ struct Castle
 };
 
 
+
+
 //Fucntions' prototypes before Fight
 
 bool FileloadData(Castle&, float &, float &, float&,int&);

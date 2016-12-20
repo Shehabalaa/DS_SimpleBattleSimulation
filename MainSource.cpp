@@ -30,9 +30,11 @@ void main() {
 		cout << "File (test.txt) doesnot exist:\nPlease rename any sample file in project folder to (test.txt)" << endl;
 		return;
 	}
-	Firstorder(Cstl);
 
 
+	Firstorder(Cstl);// get shielded first and order non shielded by timstep
+
+	
 	while (gameresult == 0)
 	{
 		CurrentTimeStep++;
@@ -40,7 +42,6 @@ void main() {
 		// Directly before fight
 		if (CurrentTimeStep >= 0) // in step by step we start with -1 showing only screen
 			AdjustShieldedPriorityandReorder(Cstl, c1, c2, c3);
-
 
 
 		//Fight Logic
@@ -80,9 +81,9 @@ void main() {
 		gameresult = CheckGameReuslt(Cstl); // determine game result
 
 		if (gameresult == 1)
-			cout << "Game is Win:\n";
-		else if(gameresult ==2)
 			cout << "Game is Lose:\n";
+		else if(gameresult ==2)
+			cout << "Game is Win:\n";
 		else if (gameresult == 3)
 			cout << "Game is Draw :\n";
 		// if game result == 0 game continue
