@@ -47,9 +47,9 @@ void PrintstatisticFile(Castle Cstl,int gameresult,int TOT_enemies)
 
 	outfile << endl<<endl;
 	if (gameresult == 1)
-		outfile << "Game is WIN\n\n";
-	else if (gameresult == 2)
 		outfile << "Game is LOSE\n\n";
+	else if (gameresult == 2)
+		outfile << "Game is WIN\n\n";
 	else outfile << "Game is DRAW\n\n";
 
 	outfile << "Total Enemies = " << TOT_enemies<<endl<<endl;

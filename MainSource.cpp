@@ -103,31 +103,3 @@ void main() {
 
 }
 	
-
-
-
-
-
-/*
-update hp check
-loop(N(numberofenemies) of Tower)
-{
-if (acive)
-{
-if (priorty > 0)
-{
-update its hp
-N--
-}
-else
-{
-update its hp
-N--
-}
-}
-else if (low)
-break;
-}
-
-*/
-
